@@ -12,45 +12,16 @@ import {
   generateAccountId,
   pregenerateHistory,
 } from "./utils.js";
+import {
+  AUTH_DATA,
+  KNOWN_CURRENCY_CODES,
+  KNOWN_OTHER_ACCOUNTS,
+  MINE_ACCOUNT,
+} from "./const.js";
 
 const app = express();
 expressWs(app);
 const port = process.env.PORT || 3000;
-
-const AUTH_DATA = Object.freeze({
-  login: "developer",
-  password: "methed",
-  token: "QXF24GFxcJSnhTSmaxRsKa08",
-});
-
-const MINE_ACCOUNT = "24051911200915061003240821";
-
-const KNOWN_OTHER_ACCOUNTS = Object.freeze([
-  "20530478211782688256124528",
-  "25103808305087276118446870",
-  "87360872061730026356786724",
-  "12508408027460025280024028",
-  "7022200000250040",
-  "2411553415544415",
-]);
-
-const KNOWN_CURRENCY_CODES = Object.freeze([
-  "ETH",
-  "BTC",
-  "USD",
-  "EUR",
-  "JPY",
-  "GBP",
-  "AUD",
-  "CAD",
-  "CHF",
-  "CNH",
-  "HKD",
-  "NZD",
-  "RUB",
-  "UAH",
-  "BYR",
-]);
 
 let currencyFeedSubscribers = [];
 
@@ -70,10 +41,6 @@ const authCheck = (req, res, next) => {
 
 app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  console.log("Received body:", req.body);
-  next();
-});
 app.get("/", (req, res) => res.send("Backend is working"));
 
 app.post("/login", (req, res) => {

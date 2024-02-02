@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { MINE_ACCOUNT } from "./const.js";
 
 // Получаем путь к текущему файлу и определяем директорию для публичных файлов
 const __filename = fileURLToPath(import.meta.url);
@@ -82,6 +83,9 @@ const pregenerateHistory = (data, accounts, mine = false) => {
     const yearAsMs = 12 * monthAsMs;
     let date = Date.now() - yearAsMs;
 
+    if (account.account === MINE_ACCOUNT) {
+      account.date = new Date(date).toISOString();
+    }
     for (let month = 0; month <= months; month++) {
       for (
         let transaction = 0;
